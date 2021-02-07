@@ -11,6 +11,7 @@ const LikeButton: React.FC = () => {
     background: theme.background,
     color: theme.color,
   }
+
   useEffect(() => {
     console.log('document title effect is running')
     document.title = `点击了${like}次`

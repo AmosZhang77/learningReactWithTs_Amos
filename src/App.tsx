@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import LikeButton from './components/LikeButton'
+import MouseTracker from "./components/MouseTracker";
 import Hello from './components/Hello'
 import useURLLoader from './hooks/useURLLoader'
 
@@ -37,6 +38,7 @@ const App: React.FC = () => {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <LikeButton />
+        {/*<MouseTracker/>*/}
         <Hello />
         <p>
           <button onClick={() => {setShow(!show)}}>Refresh dog photo</button>
