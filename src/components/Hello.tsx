@@ -4,7 +4,7 @@ interface IHelloProps {
   message?: string;
 }
 
-const Hello: React.FC<IHelloProps> = (props) => {
+  const Hello: React.FC<IHelloProps> = (props) => {
   const theme = useContext(ThemeContext)
   console.log(theme)
   const style = {
@@ -13,7 +13,7 @@ const Hello: React.FC<IHelloProps> = (props) => {
   }
   return <h2 style={style}>{props.message}</h2>
 }
-Hello.defaultProps = { // 函数组件接口默认属性之一，可以点到React.FC里面看到源码
+Hello.defaultProps = { // 函数组件接口默认属性之一，没传参数时候的默认值，可以点到React.FC里面看到源码
   message: "Hello World"
 }
 /**

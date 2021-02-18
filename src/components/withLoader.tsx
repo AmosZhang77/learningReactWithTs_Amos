@@ -1,4 +1,5 @@
-// high order component
+// high order component -- hoc
+// 高阶组件：高阶组件就是一个函数组件，接受一个组件作为参数，返回一个新的组件
 import React from 'react'
 import axios from 'axios'
 

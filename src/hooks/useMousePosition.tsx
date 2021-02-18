@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
+// 自定义hook，必须用use开头。每次使用一次hook都有一份内部变量
 const useMousePosition = () => {
   const [ positions, setPositions ] = useState({x: 0, y: 0})
   useEffect(() => {
