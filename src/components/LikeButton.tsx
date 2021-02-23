@@ -30,6 +30,7 @@ const LikeButton: React.FC = () => {
   })
   function handleAlertClick() {
     setTimeout(() => {
+      alert('you clicked on ' + like) // 这里不用useRef like 永远困在开始存like的闭包里面，一直不变
       alert('you clicked on ' + likeRef.current)
     }, 3000)
   }

@@ -4,8 +4,11 @@ import './App.css'
 import LikeButton from './components/LikeButton'
 import MouseTracker from './components/MouseTracker'
 import Hello from './components/Hello'
-import useURLLoader from './hooks/useURLLoader'
 import useMousePosition from './hooks/useMousePosition'
+
+
+/**与下面高阶组件相同功能的自定义hook*/
+import useURLLoader from './hooks/useURLLoader'
 
 /**hoc*/
 import withLoader  from './components/withLoader' // 高阶组件hoc
@@ -56,6 +59,8 @@ const WrappedDogShow = withLoader(DogShow, 'https://dog.ceo/api/breeds/image/ran
 
 
   const [show, setShow] = useState(true)
+  const [data, loading] = useURLLoader('https://dog.ceo/api/breeds/image/random',[show])
+const dogResult = data as IShowResult
 
   const positions = useMousePosition() // 使用自定义hook
   return (
@@ -64,9 +69,16 @@ const WrappedDogShow = withLoader(DogShow, 'https://dog.ceo/api/breeds/image/ran
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo"/>
 
+          {/*与下面hoc相同功能的自定义hook*/}
+          {/*用于提取重复的经常用的逻辑*/}
+          {loading?<p>读取中</p>:<img src={dogResult && dogResult.message }/>  }
+
          {/* hoc*/}
          {/* <WrappedDogShow/>*/}
           {/*hoc*/}
+
+
+
 
           <LikeButton/>
           {/*<MouseTracker/>*/}
