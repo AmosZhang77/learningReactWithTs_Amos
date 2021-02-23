@@ -7,6 +7,22 @@ import Hello from './components/Hello'
 import useURLLoader from './hooks/useURLLoader'
 import useMousePosition from './hooks/useMousePosition'
 
+/**hoc*/
+import withLoader  from './components/withLoader' // 高阶组件hoc
+interface IShowResult {
+  message: string;
+  status: string
+}
+const DogShow: React.FC<{data:IShowResult}> = ({data})=>{
+  return (
+    <>
+      <h2>Dog show: {data.status}</h2>
+      <img src={data.message} alt=""/>
+    </>
+  )
+}
+/**hoc*/
+
 // 入需要ts支持，在npx create-react-app 创建项目时需要加此参数 --typescript
 // npx 用于这种一般项目只在开始用一次，没必要npm全局安装，他会需要的时候下载，放在一个空间，用完自己删掉
 // 内部安装的模块，想要命令行使用，之前时一种写在package.json的script命令中，一种是直接node_modules/.bin/mocha去那node_modules里面的执行文件
@@ -34,6 +50,11 @@ const themes: IThemeProps = {
 }
 export const ThemeContext = React.createContext(themes.light)
 const App: React.FC = () => {
+  /**hoc 使用类似loading功能的高阶组件，缺点，多加dom节点，被包裹的子组件要了解高价组件传给他的data,才能用，逻辑复杂*/
+const WrappedDogShow = withLoader(DogShow, 'https://dog.ceo/api/breeds/image/random')
+  /**hoc*/
+
+
   const [show, setShow] = useState(true)
 
   const positions = useMousePosition() // 使用自定义hook
@@ -42,6 +63,11 @@ const App: React.FC = () => {
       <ThemeContext.Provider value={themes.dark}>
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo"/>
+
+         {/* hoc*/}
+         {/* <WrappedDogShow/>*/}
+          {/*hoc*/}
+
           <LikeButton/>
           {/*<MouseTracker/>*/}
           <Hello/>
