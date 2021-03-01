@@ -1,22 +1,15 @@
 import React, { useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
-import LikeButton from './components/LikeButton'
-import MouseTracker from './components/MouseTracker'
+import LikeButton from './components/LikeButtonNoRef'
 import Hello from './components/Hello'
-// import useMousePosition from './hooks/useMousePosition'
+import useMousePosition from './hooks/useMousePosition'
 
-/**与下面高阶组件相同功能的自定义hook*/
-import useURLLoader from './hooks/useURLLoader'
-
-/**hoc*/
-import withLoader from './components/withLoader' // 高阶组件hoc
 interface IShowResult {
   message: string;
   status: string
 }
-
-const DogShow: React.FC<{ data: IShowResult }> = ({ data }) => {
+const DogShow: React.FC<{data:IShowResult}> = ({data})=>{
   return (
     <>
       <h2>Dog show: {data.status}</h2>
@@ -24,8 +17,6 @@ const DogShow: React.FC<{ data: IShowResult }> = ({ data }) => {
     </>
   )
 }
-
-/**hoc*/
 
 // 入需要ts支持，在npx create-react-app 创建项目时需要加此参数 --typescript
 // npx 用于这种一般项目只在开始用一次，没必要npm全局安装，他会需要的时候下载，放在一个空间，用完自己删掉
@@ -54,37 +45,15 @@ const themes: IThemeProps = {
 }
 export const ThemeContext = React.createContext(themes.light)
 const App: React.FC = () => {
-  /**hoc 使用类似loading功能的高阶组件，缺点，多加dom节点，被包裹的子组件要了解高价组件传给他的data,才能用，逻辑复杂*/
-  const WrappedDogShow = withLoader(DogShow, 'https://dog.ceo/api/breeds/image/random')
-  /**hoc*/
 
-
-  const [show, setShow] = useState(true)
-  const [data, loading] = useURLLoader('https://dog.ceo/api/breeds/image/random', [show])
-  const dogResult = data as IShowResult
-
-  // const positions = useMousePosition() // 使用自定义hook
   return (
     <div className="App">
       <ThemeContext.Provider value={themes.dark}>
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo"/>
 
-          {/*与下面hoc相同功能的自定义hook*/}
-          {/*用于提取重复的经常用的逻辑*/}
-          {loading ? <p>读取中</p> : <img src={dogResult && dogResult.message}/>}
-
-          {/* hoc*/}
-          {/* <WrappedDogShow/>*/}
-          {/*hoc*/}
-
-
           <LikeButton/>
           {/*<MouseTracker/>*/}
-          <Hello/>
-          <p>
-            <button onClick={() => {setShow(!show)}}>Refresh dog photo</button>
-          </p>
 
           {/*<p>X: {positions.x}, Y : {positions.y}</p>*/}
 

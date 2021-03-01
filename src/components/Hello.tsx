@@ -6,7 +6,7 @@ interface IHelloProps {
 
   const Hello: React.FC<IHelloProps> = (props) => {
   const theme = useContext(ThemeContext)
-  console.log(theme)
+  // console.log(theme)
   const style = {
     background: theme.background,
     color: theme.color,
