@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
+
+/**
+ * useContext 使用时导入*/
 import { ThemeContext } from '../App'
+
 const LikeButton: React.FC = () => {
   const [like, setLike] = useState(0)
   /**
@@ -8,7 +12,9 @@ const LikeButton: React.FC = () => {
   const likeRef = useRef(0)
   const didMountRef = useRef(false) // 用useRef 和 useEffect 实现didMount的生命周期效果
   const [didMountState, setDidMountState]= useState(false) // 用useRef 和 useEffect 实现didMount的生命周期效果
-  const domRef = useRef<HTMLInputElement>(null)
+
+  /**
+   * useContext 这样使用，参数是创建的creatContext*/
   const theme = useContext(ThemeContext)
   // console.log(theme)
   const style = {
@@ -44,11 +50,17 @@ const LikeButton: React.FC = () => {
     }
   })
 
-  // useEffect(() => {
-  //   if (domRef && domRef.current) {
-  //     domRef.current.focus()
-  //   }
-  // })
+  /**
+   useRef另一个常用，获取真实dom节点。
+   这里拿来使input被focus.
+   用useRef的结果传给标签的ref属性。通过domRef.current拿dom*/
+  const domRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (domRef && domRef.current) {
+      domRef.current.focus()
+    }
+  })
 
   /**
    * 操作：先点alert,在短时间内狂点大拇指点赞，
@@ -63,7 +75,10 @@ const LikeButton: React.FC = () => {
   }
   return (
     <>
+
+      useRef结果传给标签ref属性，保存真实dom，便于使用
     <input type="text" ref={domRef} />
+
 <div>{like}</div>
       <button style={style} onClick={() => {setLike(like + 1); likeRef.current++}}>
         {likeRef.current} 👍

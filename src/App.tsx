@@ -9,7 +9,7 @@ import Hello from './components/Hello'
 /**与下面高阶组件相同功能的自定义hook*/
 import useURLLoader from './hooks/useURLLoader'
 
-/**hoc*/
+/**hoc start*/
 import withLoader from './components/withLoader' // 高阶组件hoc
 interface IShowResult {
   message: string;
@@ -24,8 +24,7 @@ const DogShow: React.FC<{ data: IShowResult }> = ({ data }) => {
     </>
   )
 }
-
-/**hoc*/
+/**hoc end*/
 
 // 入需要ts支持，在npx create-react-app 创建项目时需要加此参数 --typescript
 // npx 用于这种一般项目只在开始用一次，没必要npm全局安装，他会需要的时候下载，放在一个空间，用完自己删掉
@@ -38,10 +37,11 @@ interface IShowResult {
   status: string;
 }
 
+/**
+ * useContext*/
 interface IThemeProps {
   [key: string]: { color: string; background: string; }
 }
-
 const themes: IThemeProps = {
   'light': {
     color: '#000',
@@ -52,7 +52,13 @@ const themes: IThemeProps = {
     background: '#222',
   }
 }
+// 下面创建了context,并导出，因为别的地方要使用，我们在LikeButton组件中使用了，hello组件里面也用了。
+//
 export const ThemeContext = React.createContext(themes.light)
+/**
+ * useContext*/
+
+
 const App: React.FC = () => {
   /**hoc 使用类似loading功能的高阶组件，缺点，多加dom节点，被包裹的子组件要了解高价组件传给他的data,才能用，逻辑复杂*/
   const WrappedDogShow = withLoader(DogShow, 'https://dog.ceo/api/breeds/image/random')
@@ -66,6 +72,9 @@ const App: React.FC = () => {
   // const positions = useMousePosition() // 使用自定义hook
   return (
     <div className="App">
+
+      需要是用ThemeContext的，用ThemeContext.Provider包裹，用value传递，这里里面的LikeButton会用到,hello组件里面也用了
+      只要是ThemeContext.Provider包裹的组件都可以使用。使用的时候要引入这个导出。
       <ThemeContext.Provider value={themes.dark}>
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo"/>

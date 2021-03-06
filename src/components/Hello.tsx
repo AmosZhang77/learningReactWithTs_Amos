@@ -5,6 +5,9 @@ interface IHelloProps {
 }
 
   const Hello: React.FC<IHelloProps> = (props) => {
+
+    /**
+     * useContext 这样使用，参数是创建的creatContext*/
   const theme = useContext(ThemeContext)
   // console.log(theme)
   const style = {
